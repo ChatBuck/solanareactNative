@@ -9,9 +9,6 @@ import {
 } from '@solana/wallet-adapter-react-ui';
 import { clusterApiUrl } from '@solana/web3.js';
 import { SolanaMobileWalletAdapter, createDefaultAddressSelector, createDefaultAuthorizationResultCache } from '@solana-mobile/wallet-adapter-mobile';
-
-// Default styles that can be overridden by your app
-require('@solana/wallet-adapter-react-ui/styles.css');
 const wallets = useMemo(
   () => [
       new SolanaMobileWalletAdapter({
@@ -23,20 +20,23 @@ const wallets = useMemo(
  },
   authorizationResultCache: createDefaultAuthorizationResultCache(),
   cluster: WalletAdapterNetwork.Devnet,
-});
-new PhantomWalletAdapter()
+}),
+new PhantomWalletAdapter(),
       new UnsafeBurnerWalletAdapter(),
-  ] 
+  ],
   []
 );
+// Default styles that can be overridden by your app
+require('@solana/wallet-adapter-react-ui/styles.css');
+
 export const App: FC = () => {
     // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.
     const network = WalletAdapterNetwork.Devnet;
-
-    // You can also provide a custom RPC endpoint.
     const endpoint = useMemo(() => clusterApiUrl(network), [network]);
 
-   
+    // You can also provide a custom RPC endpoint.
+
+    
 
     return (
         <ConnectionProvider endpoint={endpoint}>
